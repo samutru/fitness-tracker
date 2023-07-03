@@ -27,6 +27,11 @@ public class User {
     @JsonIgnore
     private String passwordHash;
 
+    private int height;
+    private double weight;
+    private int age;
+    private double bmi;
+
     @ManyToMany
     private List<Role> roles = new ArrayList<>();
 
