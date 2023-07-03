@@ -14,7 +14,8 @@ public class ExerciseController {
     @Autowired
     ExerciseRepository exerciseRepository;
 
-    public List<Exercise> listAllExercises() {
-        return exerciseRepository.findAll();
+    // Get all Exercises for a workout
+    public List<Exercise> listExercisesForWorkout(int workoutId) {
+        return exerciseRepository.findAllExercisesForWorkout(workoutId);
     }
 }
