@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Exercise {
     @Id
-    private int exerciseId;
+    private int id;
 
     private int reps;
     private int exerciseTime; 

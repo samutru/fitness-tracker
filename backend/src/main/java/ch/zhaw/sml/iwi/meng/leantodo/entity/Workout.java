@@ -18,7 +18,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Workout {
     @Id
-    private int workoutId;
+    private int id;
 
     @Temporal(TemporalType.DATE)
     private Date dateOfWorkout;
