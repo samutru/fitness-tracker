@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        redirect: '/tabs/tab1'
+        redirect: '/tabs/workouts'
       },
       {
         path: 'profile',
