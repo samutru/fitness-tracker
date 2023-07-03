@@ -5,17 +5,21 @@
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="todo" href="/tabs/todo">
           <ion-icon :icon="flash" />
-          <ion-label>Todo</ion-label>
+          <ion-label>My Workouts</ion-label>
         </ion-tab-button>
-          
+
         <ion-tab-button tab="projects" href="/tabs/projects">
           <ion-icon :icon="apps" />
-          <ion-label>Projects</ion-label>
+          <ion-label>Exercises</ion-label>
         </ion-tab-button>
-        
+
         <ion-tab-button tab="timerecord" href="/tabs/timerecord">
           <ion-icon :icon="send" />
-          <ion-label>Timerecord</ion-label>
+          <ion-label>Visualizations</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="timerecord" href="/tabs/timerecord">
+          <ion-icon :icon="send" />
+          <ion-label>Profile</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
