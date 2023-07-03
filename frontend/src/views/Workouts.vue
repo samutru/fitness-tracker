@@ -8,93 +8,39 @@
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
         <ion-toolbar>
-          <ion-title size="large"></ion-title>
+          <ion-title size="large">Workouts</ion-title>
         </ion-toolbar>
       </ion-header>
 
-      <ion-button>Start a Workout</ion-button>
+      <ion-searchbar></ion-searchbar>
 
-      <ion-card color="medium" v-for="workout in workouts">
+      <ion-card :key="workout.id" v-for="workout in workouts">
         <ion-card-header>
-          <ion-card-title>Workout#{{ workout.id }}</ion-card-title>
-          <ion-card-subtitle>{{ workout.date }} </ion-card-subtitle>
+          <ion-card-title>Workout - {{ workout.dateOfWorkout }}</ion-card-title>
         </ion-card-header>
-
-        <ion-card-content>
-          <table>
-            <tr>
-              <td>
-                {{ workout.time }} Min
-              </td>
-              <td>
-                {{ workout.calories }} Cal
-              </td>
-            </tr>
-          </table>
-        </ion-card-content>
-
+        <ion-card-content>Total calories: {{ workout.calories }} --- Total Workouttime: {{ workout.totalTime }}  </ion-card-content>
       </ion-card>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-  import {
-    IonButton,
-    IonPage,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonFab,
-    IonFabButton,
-    IonIcon
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar } from '@ionic/vue';
+import { useWorkouts } from "../composables/useWorkouts";
 
-  } from '@ionic/vue';
-  import {
-    ref
-  } from 'vue';
+const { workouts, getWorkouts } = useWorkouts();
 
-  const workouts = ref < any > ([]);
-  workouts.value = [{
-      "user_id": 1,
-      "date": "2023-07-01",
-      "id": 101,
-      "time": 60,
-      "calories": 500
-    },
-    {
-      "user_id": 1,
-      "date": "2023-07-01",
-      "id": 102,
-      "time": 45,
-      "calories": 400
-    },
-    {
-      "user_id": 1,
-      "date": "2023-07-02",
-      "id": 103,
-      "time": 30,
-      "calories": 250
-    },
-    {
-      "user_id": 1,
-      "date": "2023-07-02",
-      "id": 104,
-      "time": 60,
-      "calories": 550
-    },
-    {
-      "user_id": 1,
-      "date": "2023-07-03",
-      "id": 105,
-      "time": 75,
-      "calories": 700
-    }
-  ];
+// exercises.value = [
+//   { id: 1, name: 'Push-ups', description: 'Keep your body straight and lower it by bending your arms. Push up until your arms are straight.' },
+//   { id: 2, name: 'Squats', description: 'Stand straight with feet hip-width apart, and bend your knees as if you were going to sit.' },
+//   { id: 3, name: 'Lunges', description: 'Step forward with one foot and lower your body until your front knee is bent at a 90 degree angle.' },
+//   { id: 4, name: 'Plank', description: 'Hold your body up off the ground in a straight line from your head to your heels.' },
+//   { id: 5, name: 'Sit-ups', description: 'Lie down on your back, bend your legs and lift your upper body towards your knees.' },
+//   { id: 6, name: 'Pull-ups', description: 'Grip the bar with your hands and pull your body up until your chin is over the bar.' },
+//   { id: 7, name: 'Bicep curls', description: 'With a weight in your hand, bend your elbow and curl the weight towards your shoulder.' },
+//   { id: 8, name: 'Tricep dips', description: 'Grip the edge of a bench or chair, slide your bottom off, and dip down by bending your elbows.' },
+//   { id: 9, name: 'Jumping jacks', description: 'Stand upright, then jump while spreading your arms and legs, return to standing and repeat.' },
+//   { id: 10, name: 'Mountain climbers', description: 'Start in a plank position and alternately drive your knees towards your chest, like running in place.' },
+// ];
+
 </script>
