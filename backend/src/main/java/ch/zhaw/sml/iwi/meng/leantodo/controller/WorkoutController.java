@@ -14,8 +14,8 @@ public class WorkoutController {
     @Autowired
     WorkoutRepository workoutRepository;
 
-    public List<Workout> listAllWorkouts() {
-        return workoutRepository.findAll();
+    public List<Workout> listAllWorkouts(String loginName) {
+        return workoutRepository.findByUserName(loginName);
     }
     
 }

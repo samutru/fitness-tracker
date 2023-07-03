@@ -19,9 +19,10 @@ public class WorkoutEndpoint {
     @Autowired
     WorkoutController workoutController;
 
-    @GetMapping("/workouts")
-    public List<Workout> getWorkouts() {
-         return workoutController.listAllWorkouts();
+    @GetMapping("/api/workouts")
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
+    public List<Workout> getWorkouts(Principal principal) {
+         return workoutController.listAllWorkouts(principal.getName());
     }
 
     
