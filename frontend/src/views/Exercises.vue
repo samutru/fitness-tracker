@@ -24,7 +24,7 @@
       <ion-grid>
         <ion-row v-for="(group, index) in groupedExerciseInfos" :key="index">
           <ion-col size="6" v-for="exerciseInfo in group" :key="exerciseInfo.id">
-            <ion-card color="primary" style="height: 10rem">
+            <ion-card color="primary" style="height: 8rem">
               <ion-card-header>
                 <ion-card-title style="text-align: center">{{ exerciseInfo.name }}</ion-card-title>
               </ion-card-header>
@@ -49,7 +49,7 @@
           <h3>Description:</h3>
           <p v-if="selectedExercise">{{ selectedExercise.description }}</p>
           <h3>YouTube:</h3>
-          <p v-if="selectedExercise">{{ selectedExercise.youtubeLink }}</p>
+          <iframe v-if="selectedExercise" width="560" height="315" :src="selectedExercise.youtubeLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </ion-content>
       </ion-modal>
     </ion-content>
@@ -59,7 +59,6 @@
 <script setup lang="ts">
 import { IonList, IonItem, IonSelect, IonSelectOption, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, IonModal, IonButtons, IonButton, IonGrid, IonRow, IonCol } from '@ionic/vue';
 import { UseExerciseInfos } from '../composables/useExerciseInfos';
-import { computed, ref } from 'vue';
 
 const { exerciseInfos, getExerciseInfos, groupedExerciseInfos, isOpen, setOpen, selectedBodypart, searchInput, selectedExercise } = UseExerciseInfos();
 </script>

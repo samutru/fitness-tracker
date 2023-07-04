@@ -1,9 +1,11 @@
-import { getAllWorkouts } from '@/api/workouts';
+import { getAllWorkouts, createNewWorkout } from '@/api/workouts';
 import { Workout } from '@/model/workouts';
 import { onMounted, ref } from 'vue';
 
 export function useWorkouts() {
   const workouts = ref<Workout[]>([]);
+  const currentDatetime = new Date();
+  const datetimeInput = ref(currentDatetime.toISOString());
 
   const getWorkouts = async () => {
     try {
@@ -15,8 +17,26 @@ export function useWorkouts() {
 
   onMounted(getWorkouts);
 
+  const saveWorkout = async () => {
+    if (datetimeInput.value) {
+      const datetime = new Date(datetimeInput.value);
+      // const date = datetime.toISOString().split('T')[0] + ' ' + datetime.toTimeString().split(' ')[0];
+      let workout: Workout = {
+        dateOfWorkout: datetime,
+      };
+      try {
+        await createNewWorkout(workout);
+        getWorkouts();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return {
     workouts,
+    datetimeInput,
     getWorkouts,
+    saveWorkout,
   };
 }
