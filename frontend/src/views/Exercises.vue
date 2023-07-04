@@ -5,27 +5,28 @@
         <ion-title>Exercises</ion-title>
       </ion-toolbar>
       <ion-toolbar>
-        <ion-searchbar></ion-searchbar>
+        <ion-searchbar v-model="searchInput"></ion-searchbar>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding">
       <ion-list>
         <ion-item>
-          <ion-select aria-label="Bodypart" interface="popover" placeholder="Select Bodypart" >
-            <ion-select-option value="abs">Abs</ion-select-option>
-            <ion-select-option value="arms">Arms</ion-select-option>
-            <ion-select-option value="chest">Chest</ion-select-option>
-            <ion-select-option value="legs">Legs</ion-select-option>
-            <ion-select-option value="cancel">Cancel</ion-select-option>
+          <ion-select aria-label="Bodypart" interface="alert" placeholder="Select Bodypart" v-model="selectedBodypart">
+            <ion-select-option value="Abs">Abs</ion-select-option>
+            <ion-select-option value="Arms">Arms</ion-select-option>
+            <ion-select-option value="Chest">Chest</ion-select-option>
+            <ion-select-option value="Legs">Legs</ion-select-option>
+            <ion-select-option value="NoFilter">No Filter</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-list>
+
       <ion-grid>
-        <ion-row>
-          <ion-col size="6" v-for="exerciseInfo in exerciseInfos" :key="exerciseInfo.id">
+        <ion-row v-for="(group, index) in groupedExerciseInfos" :key="index">
+          <ion-col size="6" v-for="exerciseInfo in group" :key="exerciseInfo.id">
             <ion-card color="primary" style="height: 10rem">
               <ion-card-header>
-                <ion-card-title style="text-align: center">{{ exerciseInfo.name }} - {{ exerciseInfo.category }}</ion-card-title>
+                <ion-card-title style="text-align: center">{{ exerciseInfo.name }}</ion-card-title>
               </ion-card-header>
               <ion-card-content>
                 <ion-button expand="block" @click="setOpen(true, exerciseInfo)" color="light">Open</ion-button>
@@ -58,16 +59,9 @@
 <script setup lang="ts">
 import { IonList, IonItem, IonSelect, IonSelectOption, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, IonModal, IonButtons, IonButton, IonGrid, IonRow, IonCol } from '@ionic/vue';
 import { UseExerciseInfos } from '../composables/useExerciseInfos';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-const { exerciseInfos, getExerciseInfos } = UseExerciseInfos();
-const isOpen = ref(false);
-const selectedExercise = ref<any>();
-
-const setOpen = (status: boolean, exerciseInfo: any) => {
-  isOpen.value = status;
-  selectedExercise.value = exerciseInfo;
-};
+const { exerciseInfos, getExerciseInfos, groupedExerciseInfos, isOpen, setOpen, selectedBodypart, searchInput, selectedExercise } = UseExerciseInfos();
 </script>
 
 <style scoped></style>
