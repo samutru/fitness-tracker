@@ -1,11 +1,13 @@
 import { getAllWorkouts, createNewWorkout } from '@/api/workouts';
 import { Workout } from '@/model/workouts';
+import { useRouter } from 'vue-router';
 import { onMounted, ref } from 'vue';
 
 export function useWorkouts() {
   const workouts = ref<Workout[]>([]);
   const currentDatetime = new Date();
   const datetimeInput = ref(currentDatetime.toISOString());
+  const router = useRouter();
 
   const getWorkouts = async () => {
     try {
@@ -25,8 +27,10 @@ export function useWorkouts() {
         dateOfWorkout: datetime,
       };
       try {
-        await createNewWorkout(workout);
+        let response = await createNewWorkout(workout);
         getWorkouts();
+        
+        router.push('/tabs/addExercises/' + response.id);
       } catch (error) {
         console.log(error);
       }

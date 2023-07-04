@@ -1,21 +1,21 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Tabs from '@/views/Tabs.vue'
-import Login from '@/views/Login.vue'
-import Signup from '@/views/Signup.vue'
+import Tabs from '@/views/Tabs.vue';
+import Login from '@/views/Login.vue';
+import Signup from '@/views/Signup.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/login',
   },
   {
     path: '/login',
-    component: Login
+    component: Login,
   },
   {
     path: '/signup',
-    component: Signup
+    component: Signup,
   },
   {
     path: '/tabs/',
@@ -23,31 +23,35 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        redirect: '/tabs/workouts'
+        redirect: '/tabs/workouts',
       },
       {
         path: 'profile',
-        component: () => import('@/views/Profile.vue')
+        component: () => import('@/views/Profile.vue'),
       },
       {
         path: 'workouts',
-        component: () => import('@/views/Workouts.vue')
+        component: () => import('@/views/Workouts.vue'),
       },
       {
         path: 'exercises',
-        component: () => import('@/views/Exercises.vue')
+        component: () => import('@/views/Exercises.vue'),
       },
       {
         path: 'visualizations',
-        component: () => import('@/views/Visualizations.vue')
-      }
-    ]
-  }
-]
+        component: () => import('@/views/Visualizations.vue'),
+      },
+      {
+        path: 'addExercises/:id',
+        component: () => import('@/views/WorkoutAddExercises.vue'),
+      },
+    ],
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

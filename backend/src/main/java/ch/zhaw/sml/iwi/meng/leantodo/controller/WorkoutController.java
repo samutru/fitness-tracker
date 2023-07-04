@@ -26,7 +26,6 @@ public class WorkoutController {
     public Workout addWorkout(Workout workout, String username) {
         User user = userRepository.findById(username).get();
         workout.setUser(user);
-        System.out.print(workout.getUser().getLoginName());
         return workoutRepository.save(workout);
     }
     
