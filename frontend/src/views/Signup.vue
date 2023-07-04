@@ -6,7 +6,7 @@
           <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
             <div text-center>
               <h1>FitnessTracker</h1>
-              <h3>login or <a href="/signup"> signup</a></h3>
+              <h3>signup or <a href="/login"> login</a></h3>
             </div>
             <div padding>
               <ion-item>
@@ -15,9 +15,18 @@
               <ion-item>
                 <ion-input type="password" placeholder="Password" v-model="password"></ion-input>
               </ion-item>
+              <ion-item>
+                <ion-input type="number" placeholder="Age" v-model="age"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input type="number" placeholder="Heigth in CM" v-model="height"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-input type="number" placeholder="Weight in KG" v-model="weight"></ion-input>
+              </ion-item>
             </div>
             <div padding>
-              <ion-button size="large" @click="login" expand="block">Login</ion-button>
+              <ion-button size="large" @click="signupUser" expand="block">Signup</ion-button>
             </div>
           </ion-col>
         </ion-row>
@@ -37,8 +46,9 @@ import {
   IonButton,
   IonItem,
 } from "@ionic/vue";
-import { useLogin } from "../composables/useLogin";
+import { UseSignup } from "../composables/useSignup";
 
-const { username, password, login } = useLogin();
+const { username, password, height, weight, age, signupUser} = UseSignup();
+
 
 </script>

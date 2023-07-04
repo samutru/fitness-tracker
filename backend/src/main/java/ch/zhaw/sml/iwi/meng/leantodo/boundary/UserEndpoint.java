@@ -13,6 +13,8 @@ import ch.zhaw.sml.iwi.meng.leantodo.controller.UserController;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.User;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -36,4 +38,8 @@ public class UserEndpoint {
         return userController.getUserInfo(principal.getName());
     }
     
+    @PostMapping(value = "/signupUser")
+    public User signupUser(@RequestBody User user) {
+        return userController.saveUser(user);
+    }
 }
