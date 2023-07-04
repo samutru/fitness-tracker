@@ -24,14 +24,14 @@
       <ion-grid>
         <ion-row v-for="(group, index) in groupedExerciseInfos" :key="index">
           <ion-col size="6" v-for="exerciseInfo in group" :key="exerciseInfo.id">
-              <ion-card color="primary" style="height: 10rem">
-                <ion-card-header>
-                  <ion-card-title style="text-align: center">{{ exerciseInfo.name }}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  <ion-button expand="block" @click="setOpen(true, exerciseInfo)" color="light">Open</ion-button>
-                </ion-card-content>
-              </ion-card>
+            <ion-card color="primary" style="height: 10rem">
+              <ion-card-header>
+                <ion-card-title style="text-align: center">{{ exerciseInfo.name }}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-button expand="block" @click="setOpen(true, exerciseInfo)" color="light">Open</ion-button>
+              </ion-card-content>
+            </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -61,25 +61,7 @@ import { IonList, IonItem, IonSelect, IonSelectOption, IonPage, IonHeader, IonTo
 import { UseExerciseInfos } from '../composables/useExerciseInfos';
 import { computed, ref } from 'vue';
 
-const { exerciseInfos, getExerciseInfos } = UseExerciseInfos();
-const isOpen = ref(false);
-const selectedExercise = ref<any>();
-let selectedBodypart = ref('');
-let searchInput = ref('');
-
-const setOpen = (status: boolean, exerciseInfo: any) => {
-  isOpen.value = status;
-  selectedExercise.value = exerciseInfo;
-};
-
-const groupedExerciseInfos = computed(() => {
-  let filteredExercises = exerciseInfos.value.filter((exerciseInfo) => selectedBodypart.value == exerciseInfo.category || selectedBodypart.value == 'NoFilter' || !selectedBodypart.value);
-  let grouped = [];
-  for (let i = 0; i < filteredExercises.length; i += 2) {
-    grouped.push(filteredExercises.slice(i, i + 2));
-  }
-  return grouped;
-});
+const { exerciseInfos, getExerciseInfos, groupedExerciseInfos, isOpen, setOpen, selectedBodypart, searchInput, selectedExercise } = UseExerciseInfos();
 </script>
 
 <style scoped></style>
