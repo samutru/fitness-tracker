@@ -11,3 +11,37 @@ INSERT INTO EXERCISE_INFO (id, name, description, category, youtube_Link) VALUES
 (10, 'Deadlifts', 'Stand with your feet hip-width apart, bend at the waist, keep your back straight, and lift a barbell off the ground.', 'Legs', 'https://youtube.com/v/deadlifts'),
 (11, 'Leg Press', 'Sit in a leg press machine, place your feet on the platform and push the weight away from you using your legs.', 'Legs', 'https://youtube.com/v/leg-press'),
 (12, 'Bench Press', 'Lay on a bench, lower a barbell to your chest, and then press it back up until your arms are straight.', 'Upper Body', 'https://youtube.com/v/bench-press');
+
+INSERT INTO WORKOUT (id, date_Of_Workout, total_Time, calories) VALUES
+(100, '2023-07-06', 60, 300.0),
+(101, '2023-07-07', 70, 350.0),
+(102, '2023-07-08', 80, 400.0),
+(103, '2023-07-09', 90, 450.0),
+(104, '2023-07-10', 100, 500.0);
+
+INSERT INTO EXERCISE (id, reps, exercise_Time, Workout_Id, exercise_Info_Id) VALUES
+(4, 12, 10, 100, 1),
+(5, 14, 20, 100, 2),
+(6, 16, 30, 100, 3),
+(7, 18, 40, 100, 4),
+(8, 20, 50, 100, 5),
+(9, 12, 10, 101, 1),
+(10, 14, 20, 101, 2),
+(11, 16, 30, 101, 3),
+(12, 18, 40, 101, 4),
+(13, 20, 50, 101, 5),
+(14, 12, 10, 102, 1),
+(15, 14, 20, 102, 2),
+(16, 16, 30, 102, 3),
+(17, 18, 40, 102, 4),
+(18, 20, 50, 102, 5),
+(19, 12, 10, 103, 1),
+(20, 14, 20, 103, 2),
+(21, 16, 30, 103, 3),
+(22, 18, 40, 103, 4),
+(23, 20, 50, 103, 5),
+(24, 12, 10, 104, 1),
+(25, 14, 20, 104, 2),
+(26, 16, 30, 104, 3),
+(27, 18, 40, 104, 4),
+(28, 20, 50, 104, 5);

@@ -1,5 +1,8 @@
 package ch.zhaw.sml.iwi.meng.leantodo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +18,8 @@ import ch.zhaw.sml.iwi.meng.leantodo.entity.Role;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.RoleRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.User;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.UserRepository;
+import ch.zhaw.sml.iwi.meng.leantodo.entity.Workout;
+import ch.zhaw.sml.iwi.meng.leantodo.entity.WorkoutRepository;
 
 @SpringBootApplication
 @EnableWebSecurity
@@ -31,6 +36,9 @@ public class LeanToDo implements CommandLineRunner {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private WorkoutRepository workoutRepository;
 
     
     @Bean
@@ -59,5 +67,12 @@ public class LeanToDo implements CommandLineRunner {
         roleRepository.save(r);
         u.getRoles().add(r);
         userRepository.save(u);
+
+        List<Workout> workouts = workoutRepository.findAll();
+        for (Workout workout : workouts) {
+            workout.setUser(u);
+            workoutRepository.save(workout);
+        }
+
     }
 }

@@ -20,6 +20,7 @@ public class ExerciseInfoEndpoint {
     ExerciseInfoController exerciseInfoController;
 
     @GetMapping(path = "/api/exerciseInfos")
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<ExerciseInfo> getExercises(Principal principal) {
         return exerciseInfoController.listAllExerciseInfos();
     }
