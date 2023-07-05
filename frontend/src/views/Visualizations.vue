@@ -11,49 +11,68 @@
           <ion-title size="large">Visualizations</ion-title>
         </ion-toolbar>
       </ion-header>
-      <ion-searchbar placeholder="Exercise"></ion-searchbar>
-      <Line :data="data" :options="options" />
+      <ion-searchbar v-model="searchQuery" placeholder="Exercise"></ion-searchbar>
+      <ion-list>
+        <ion-item v-for="exercise in filteredExercises" :key="exercise.id">
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                {{ exercise.name }}
+              </ion-col>
+              <ion-col>
+                <ion-button @click="openCloseModal(true, exercise)">
+                  Visualization
+                  <ion-icon slot="end" :icon="chevronForwardOutline"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+
+      <ion-modal :is-open="openVis">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>{{ selectedExercise.name }}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button @click="openCloseModal(false, selectedExercise)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <Line :data="data" :options="options" />
+        </ion-content>
+      </ion-modal>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar } from '@ionic/vue';
-import {Visualization} from '@/model/visualization'
+  import {
+    IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonList, IonItem, IonButton, IonIcon, IonGrid, IonRow, IonCol, IonModal, IonButtons } from '@ionic/vue'
+  import { UseVisualization } from '@/composables/useVisualization'
+  import { chevronForwardOutline } from 'ionicons/icons';
+  import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
+  import { Line } from 'vue-chartjs'
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-} from 'chart.js'
-import { Line } from 'vue-chartjs'
-import { UseVisualization } from '@/composables/useVisualization'
-import { onMounted } from 'vue';
+  const { searchQuery, filteredExercises, openVis, selectedExercise, openCloseModal, data } = UseVisualization();
 
-const { data, getVisualization } = UseVisualization();
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  )
 
-onMounted(() => {
-  getVisualization()
-})
+  const options = {
+    responsive: true,
+    maintainAspectRatio: true
+  }
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-)
+  
 
-const options = {
-  responsive: true,
-  maintainAspectRatio: false
-}
 
 </script>

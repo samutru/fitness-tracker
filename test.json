@@ -1,0 +1,30 @@
+{
+    "id": 4,
+    "reps": 12,
+    "exerciseTime": 10,
+    "workout": {
+        "id": 100,
+        "dateOfWorkout": "2023-07-06",
+        "totalTime": 60,
+        "calories": 300.0,
+        "user": {
+            "loginName": "user",
+            "height": 0,
+            "weight": 0.0,
+            "age": 0,
+            "bmi": 0.0,
+            "roles": [
+                {
+                    "roleName": "ROLE_USER"
+                }
+            ]
+        }
+    },
+    "exerciseInfo": {
+        "id": 1,
+        "name": "Push-ups",
+        "description": "Keep your body straight and lower it by bending your arms. Push up until your arms are straight.",
+        "category": "Upper Body",
+        "youtubeLink": "https://www.youtube.com/embed/IODxDxX7oi4"
+    }
+}

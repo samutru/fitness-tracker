@@ -30,8 +30,12 @@ public class WorkoutEndpoint {
 
     @GetMapping(value = "/api/workouts/{id}")
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
-    public Workout getWorkout(@PathVariable(name="id") int workoutId) {
-         return workoutController.listWorkout(workoutId);
+    public Workout getWorkout(@PathVariable(name="id") int workoutId, Principal principal) {
+          Workout w = workoutController.getWorkout(workoutId);
+          if(w.getUser().getLoginName() == principal.getName()) {
+               return workoutController.listWorkout(workoutId);
+          }
+          return null;
     }
 
     @PostMapping(value = "/api/workouts")

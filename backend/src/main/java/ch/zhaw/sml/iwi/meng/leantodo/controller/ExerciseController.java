@@ -18,4 +18,11 @@ public class ExerciseController {
     public List<Exercise> listExercisesForWorkout(int workoutId) {
         return exerciseRepository.findAllExercisesForWorkout(workoutId);
     }
+
+    // get list of specific exercises for user for visualization
+    public List<Exercise> getExercisesForVisualization(String username, String exerciseName) {
+
+        List<Exercise> exercises = exerciseRepository.findExercisesByUserAndType(username, exerciseName);
+        return exercises;
+    }
 }
