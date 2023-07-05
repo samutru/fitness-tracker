@@ -32,8 +32,10 @@ public class WorkoutEndpoint {
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public Workout getWorkout(@PathVariable(name="id") int workoutId, Principal principal) {
           Workout w = workoutController.getWorkout(workoutId);
-          if(w.getUser().getLoginName() == principal.getName()) {
-               return workoutController.listWorkout(workoutId);
+          System.out.println("workout user: "+w.getUser().getLoginName());
+          System.out.println("principal: "+principal.getName());
+          if(w.getUser().getLoginName().equals(principal.getName())) {
+               return w;
           }
           return null;
     }

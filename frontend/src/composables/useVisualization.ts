@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue';
 import { UseExerciseInfos } from '@/composables/useExerciseInfos';
 import { ExerciseInfo } from '@/model/exerciseInfos';
 import { getExercisesForVisualization } from "@/api/exercise";
+import { isNullOrUndef } from "chart.js/dist/helpers/helpers.core";
 
 
 export function UseVisualization() {
@@ -28,7 +29,7 @@ export function UseVisualization() {
         var label: string[] = [];
         var dataset: number[] = [];
         response.forEach(exercise => {
-          if(exercise.workout.dateOfWorkout) {
+          if(exercise.workout && exercise.workout.dateOfWorkout && exercise.reps) {
             label.push(formatDate(new Date (exercise.workout.dateOfWorkout)));
             dataset.push(exercise.reps);
           }
@@ -38,7 +39,7 @@ export function UseVisualization() {
             labels: label,
             datasets: [
               {
-                label: response[0].exerciseInfo.name || 'Fehler',
+                label:  response[0].exerciseInfo?.name || 'Fehler',
                 backgroundColor: '#f87979',
                 data: dataset
               }
@@ -51,12 +52,17 @@ export function UseVisualization() {
     const openVis = ref<boolean>();
     const selectedExercise = ref<any>();
 
-    const openCloseModal = (isOpen: boolean, exerciseInfo: ExerciseInfo) => {
+    const openCloseModal = (isOpen: boolean, exerciseInfo: any) => {
         openVis.value = isOpen
         selectedExercise.value = exerciseInfo;
-        if(isOpen) {
+        if(isOpen && exerciseInfo != null) {
           if(exerciseInfo.name) {
             getVisualization(exerciseInfo.name);
+          }
+        } else {
+          data.value = {
+            labels: [],
+            datasets: []
           }
         }
     }

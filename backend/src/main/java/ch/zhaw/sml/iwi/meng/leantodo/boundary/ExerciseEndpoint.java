@@ -30,7 +30,7 @@ public class ExerciseEndpoint {
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<Exercise> getExercises(@RequestParam(name="id") int workoutId, Principal principal) {
         Workout w = workoutController.getWorkout(workoutId);
-        if(w.getUser().getLoginName() == principal.getName()) {
+        if(w.getUser().getLoginName().equals(principal.getName())) {
             return exerciseController.listExercisesForWorkout(workoutId);
         } 
         return null;

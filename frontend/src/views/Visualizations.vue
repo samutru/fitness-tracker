@@ -33,14 +33,19 @@
       <ion-modal :is-open="openVis">
         <ion-header>
           <ion-toolbar>
-            <ion-title>{{ selectedExercise.name }}</ion-title>
+            <ion-title>{{ selectedExercise ? selectedExercise.name : '' }}</ion-title>
             <ion-buttons slot="end">
-              <ion-button @click="openCloseModal(false, selectedExercise)">Close</ion-button>
+              <ion-button @click="openCloseModal(false, null)">Close</ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          <Line :data="data" :options="options" />
+          <Line v-if="data.labels.length || data.datasets.length" :data="data" :options="options" style="width: 100%;"/>
+          <div v-else style="text-align: center;">
+            <h2>No graphic available</h2>
+            <h6>You need to do a Workout first</h6>
+          </div>
+          <h4>Description:</h4>{{ selectedExercise ? selectedExercise.description : '' }}
         </ion-content>
       </ion-modal>
     </ion-content>
