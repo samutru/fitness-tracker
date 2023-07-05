@@ -33,4 +33,9 @@ public class WorkoutController {
         workout.setUser(user);
         return workoutRepository.save(workout);
     }
+
+    // Get Workout for id
+    public Workout getWorkout(int workoutId) {
+        return workoutRepository.findById(workoutId).get();
+    }
 }

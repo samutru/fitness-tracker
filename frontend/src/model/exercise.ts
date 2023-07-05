@@ -1,7 +1,10 @@
+import { Workout } from "./workouts";
+import { ExerciseInfo } from "./exerciseInfos";
+
 export interface Exercise {
-    id?: number;
-    exerciseTime?: number;
-    reps?: number;
-    exerciseInfoId?: number;
-    workoutId?: number;
+    id: number;
+    reps: number;
+    exerciseTime: number;
+    workout: Workout;
+    exerciseInfo: ExerciseInfo;
 }
