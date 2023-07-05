@@ -23,10 +23,14 @@ public class WorkoutController {
         return workoutRepository.findByUserName(loginName);
     }
 
+    // Get workout by id
+    public Workout listWorkout(int workoutId) {
+        return workoutRepository.findById(workoutId).get();
+    }
+
     public Workout addWorkout(Workout workout, String username) {
         User user = userRepository.findById(username).get();
         workout.setUser(user);
         return workoutRepository.save(workout);
     }
-    
 }
