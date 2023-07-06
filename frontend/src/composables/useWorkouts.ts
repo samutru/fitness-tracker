@@ -96,7 +96,7 @@ export function useWorkouts() {
       noExercisesSelected.value = false;
       const effectiveExercises = selectedExercises.value.map((value) => {
         return {
-          reps: 5,
+          reps: 0,
           exerciseTime: value.time,
           exerciseInfo: {
             id: value.id,

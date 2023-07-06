@@ -15,15 +15,15 @@
         <ion-card-content>Time {{ currentExercise.exerciseTime }}s </ion-card-content>
       </ion-card>
 
-      <ion-button @click="beginWorkout(true)">Begin Workout</ion-button>
+      <div>
+        <ion-button v-if="!workoutStarted && !workoutEnded" @click="beginWorkout(true)">Begin Workout</ion-button>
+        <ion-button v-else-if="!workoutStarted" @click="endWorkout()">End Workout</ion-button>
+      </div>
 
-      <ion-modal :is-open="workoutStarted">
+      <ion-modal :is-open="workoutStarted && !workoutEnded">
         <ion-header>
           <ion-toolbar>
-            <ion-title>Current Exercise</ion-title>
-            <ion-buttons slot="end">
-              <ion-button @click="workoutStarted = false">Close</ion-button>
-            </ion-buttons>
+            <ion-title>Current Exercise - {{ countdown }} </ion-title>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
@@ -31,10 +31,18 @@
             <ion-card-header>
               <ion-card-title>{{ currentExercises[currentExerciseIndex].exerciseInfo?.name }}</ion-card-title>
             </ion-card-header>
+            <ion-card-content>
+              <div>
+                <ion-button v-if="!workoutPaused && !showNextExerciseBtn" @click="pauseWorkout(true)">Pause Workout</ion-button>
+                <ion-button v-else-if="workoutPaused && !showNextExerciseBtn" @click="pauseWorkout(false)">Continiue Workout</ion-button>
+                <ion-button v-if="showNextExerciseBtn" @click="showNextExercise(), updateExerciseInfos(currentExercises[currentExerciseIndex - 1].workout?.id, currentExercises[currentExerciseIndex - 1].id)">Next Exercise</ion-button>
+                <ion-input v-if="showRepInputField" labelPlacement="floating" v-model="reps">
+                  <div slot="label">Reps <ion-text color="danger">(Required)</ion-text></div>
+                </ion-input>
+              </div>
+            </ion-card-content>
           </ion-card>
-          <ion-item>
-            <ion-input type="number" placeholder="Age"></ion-input>
-          </ion-item>
+          <iframe width="560" height="315" :src="currentExercises[currentExerciseIndex].exerciseInfo?.youtubeLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </ion-content>
       </ion-modal>
     </ion-content>
@@ -42,9 +50,9 @@
 </template>
 
 <script setup lang="ts">
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonInput, IonItem, IonModal, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonModal, IonPage, IonTitle, IonToolbar, IonInput } from '@ionic/vue';
 import { useWorkoutSession } from '../../composables/useWorkoutSession';
-const { currentExercises, workoutStarted, currentExerciseIndex, beginWorkout, listAllExercisesForWorkout } = useWorkoutSession();
+const { currentExercises, workoutStarted, workoutEnded, currentExerciseIndex, countdown, workoutPaused, showNextExerciseBtn, showRepInputField, reps, beginWorkout, showNextExercise, pauseWorkout, endWorkout, updateExerciseInfos } = useWorkoutSession();
 </script>
 
 <style scoped></style>

@@ -3,10 +3,11 @@ package ch.zhaw.sml.iwi.meng.leantodo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Exercise;
-import ch.zhaw.sml.iwi.meng.leantodo.entity.ExerciseInfo;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ExerciseInfoRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.ExerciseRepository;
 import ch.zhaw.sml.iwi.meng.leantodo.entity.Workout;
@@ -41,5 +42,21 @@ public class ExerciseController {
             exercise.setWorkout(workout);
         }
         return exerciseRepository.saveAll(exercises);
+    }
+
+    // update the exercise
+    public void updateExercise(Exercise exercise, int workoutId) {
+        Workout workout = workoutRepository.findById(workoutId).get();
+        if (workout == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Workout not found");
+        }
+
+        Exercise orig = exerciseRepository.findById(exercise.getId()).get();
+
+        if (orig == null || !(orig.getWorkout().getId() == workoutId)) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Exercise not found");
+        }
+        orig.setReps(exercise.getReps());
+        exerciseRepository.save(orig);
     }
 }

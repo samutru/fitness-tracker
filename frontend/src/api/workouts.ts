@@ -62,3 +62,14 @@ export async function getExercisesForWorkout(id: number): Promise<any> {
     return <any>error;
   }
 }
+
+export async function updateExercise(exerciseUpdate: Exercise, id: number) {
+  const config = {
+    withCredentials: true,
+  };
+  try {
+    await axios.put(API_ROOT + '/api/exercises?id=' + id, exerciseUpdate, config);
+  } catch (error) {
+    throw <any>error;
+  }
+}
