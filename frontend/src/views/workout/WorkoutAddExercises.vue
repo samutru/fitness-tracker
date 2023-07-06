@@ -11,7 +11,8 @@
         <ion-item-sliding v-for="selectedExercise in selectedExercises">
           <ion-item>
             <ion-label>{{ selectedExercise.name }}</ion-label>
-            <ion-range @ionChange="onIonChange(selectedExercise.id, $event)" :value="60" :pin="true" :snaps="true"></ion-range>
+            <!-- :value="60" set start value for range -->
+            <ion-range @ionChange="onIonChange(selectedExercise.id, $event)" :pin="true" :snaps="true"></ion-range>
           </ion-item>
           <ion-item-options>
             <ion-item-option color="danger" @click="removeExercise(selectedExercise.id)">Remove</ion-item-option>
@@ -66,11 +67,11 @@
 </template>
 
 <script setup lang="ts">
-import { IonList, IonItem, IonSelect, IonSelectOption, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonModal, IonButtons, IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonLabel, IonRange, IonAlert } from '@ionic/vue';
+import { IonAlert, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonModal, IonPage, IonRange, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/vue';
 import { UseExerciseInfos } from '../../composables/useExerciseInfos';
-import { useWorkouts } from '../../composables/useWorkouts';
+import { UseWorkouts } from '../../composables/useWorkouts';
 
-const { currentWorkout, selectedExercises, noExercisesSelected, addExercise, startWorkout, onIonChange, removeExercise } = useWorkouts();
+const { currentWorkout, selectedExercises, noExercisesSelected, addExercise, startWorkout, onIonChange, removeExercise } = UseWorkouts();
 const { filterExercisesInWorkout, isOpen, setOpen, selectedBodypart, selectedExercise } = UseExerciseInfos();
 const alertButtons = ['OK'];
 </script>
