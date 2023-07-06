@@ -3,7 +3,7 @@ import { Workout } from '@/model/workout';
 import { useRouter, useRoute } from 'vue-router';
 import { onMounted, ref } from 'vue';
 
-export function UseWorkouts() {
+export function useWorkouts() {
   const workouts = ref<Workout[]>([]);
   const currentWorkout = ref<Workout>({});
   const currentDatetime = new Date();
@@ -19,11 +19,11 @@ export function UseWorkouts() {
   // get current route
   const route = useRoute();
   const noExercisesSelected = ref<boolean>();
-  const routeWorkoutId = ref<any>();
 
   // This functions reads the current workoutId out of the path
   onMounted(async () => {
-    routeWorkoutId.value = route.params.id;
+    const routeWorkoutId = route.params.id;
+
     if (routeWorkoutId) {
       try {
         currentWorkout.value = await getWorkoutById(Number(routeWorkoutId));
@@ -107,7 +107,7 @@ export function UseWorkouts() {
       try {
         if (id !== null) {
           let res = await addExercisesToWorkout(effectiveExercises, id);
-          router.push('/workout/' + routeWorkoutId.value);
+          router.push('/tabs/workout/' + id);
         } else {
           console.log('workoutId.value is null');
         }

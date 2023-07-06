@@ -50,3 +50,15 @@ export async function addExercisesToWorkout(exercises: Exercise[], id: number | 
     return <any>error;
   }
 }
+
+export async function getExercisesForWorkout(id: number): Promise<any> {
+  const config = {
+    withCredentials: true,
+  };
+  try {
+    const response = await axios.get(API_ROOT + '/api/exercises?id=' + id, config);
+    return response.data;
+  } catch (error) {
+    return <any>error;
+  }
+}

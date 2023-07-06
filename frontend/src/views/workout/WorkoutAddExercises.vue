@@ -69,9 +69,9 @@
 <script setup lang="ts">
 import { IonAlert, IonButton, IonButtons, IonContent, IonHeader, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonModal, IonPage, IonRange, IonSelect, IonSelectOption, IonTitle, IonToolbar } from '@ionic/vue';
 import { UseExerciseInfos } from '../../composables/useExerciseInfos';
-import { UseWorkouts } from '../../composables/useWorkouts';
+import { useWorkouts } from '../../composables/useWorkouts';
 
-const { currentWorkout, selectedExercises, noExercisesSelected, addExercise, startWorkout, onIonChange, removeExercise } = UseWorkouts();
+const { currentWorkout, selectedExercises, noExercisesSelected, addExercise, startWorkout, onIonChange, removeExercise } = useWorkouts();
 const { filterExercisesInWorkout, isOpen, setOpen, selectedBodypart, selectedExercise } = UseExerciseInfos();
 const alertButtons = ['OK'];
 </script>
