@@ -40,12 +40,13 @@
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
-          <Line v-if="data.labels.length || data.datasets.length" :data="data" :options="options" style="width: 100%;"/>
-          <div v-else style="text-align: center;">
+          <Line v-if="data.labels.length || data.datasets.length" :data="data" :options="options" style="width: 100%" />
+          <div v-else style="text-align: center">
             <h2>No graphic available</h2>
             <h6>You need to do a Workout first</h6>
           </div>
-          <h4>Description:</h4>{{ selectedExercise ? selectedExercise.description : '' }}
+          <h4>Description:</h4>
+          {{ selectedExercise ? selectedExercise.description : '' }}
         </ion-content>
       </ion-modal>
     </ion-content>
@@ -53,31 +54,18 @@
 </template>
 
 <script setup lang="ts">
-  import {
-    IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonList, IonItem, IonButton, IonIcon, IonGrid, IonRow, IonCol, IonModal, IonButtons } from '@ionic/vue'
-  import { UseVisualization } from '@/composables/useVisualization'
-  import { chevronForwardOutline } from 'ionicons/icons';
-  import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js'
-  import { Line } from 'vue-chartjs'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonList, IonItem, IonButton, IonIcon, IonGrid, IonRow, IonCol, IonModal, IonButtons } from '@ionic/vue';
+import { UseVisualization } from '@/composables/useVisualization';
+import { chevronForwardOutline } from 'ionicons/icons';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import { Line } from 'vue-chartjs';
 
-  const { searchQuery, filteredExercises, openVis, selectedExercise, openCloseModal, data } = UseVisualization();
+const { searchQuery, filteredExercises, openVis, selectedExercise, openCloseModal, data } = UseVisualization();
 
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  )
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-  const options = {
-    responsive: true,
-    maintainAspectRatio: true
-  }
-
-  
-
-
+const options = {
+  responsive: true,
+  maintainAspectRatio: true,
+};
 </script>

@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, IonAccordionGroup, IonAccordion, IonItem, IonLabel, IonList, IonDatetime, IonButton } from '@ionic/vue';
-import { useWorkouts } from '../composables/useWorkouts';
+import { useWorkouts } from '../../composables/useWorkouts';
 
 const { workouts, datetimeInput, saveWorkout } = useWorkouts();
 </script>

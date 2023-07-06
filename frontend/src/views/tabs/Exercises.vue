@@ -58,9 +58,9 @@
 
 <script setup lang="ts">
 import { IonList, IonItem, IonSelect, IonSelectOption, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, IonModal, IonButtons, IonButton, IonGrid, IonRow, IonCol } from '@ionic/vue';
-import { UseExerciseInfos } from '../composables/useExerciseInfos';
+import { UseExerciseInfos } from '../../composables/useExerciseInfos';
 
-const { exerciseInfos, getExerciseInfos, groupedExerciseInfos, isOpen, setOpen, selectedBodypart, searchInput, selectedExercise } = UseExerciseInfos();
+const { groupedExerciseInfos, isOpen, setOpen, selectedBodypart, searchInput, selectedExercise } = UseExerciseInfos();
 </script>
 
 <style scoped></style>

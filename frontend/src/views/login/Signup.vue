@@ -46,7 +46,7 @@ import {
   IonButton,
   IonItem,
 } from "@ionic/vue";
-import { UseSignup } from "../composables/useSignup";
+import { UseSignup } from "../../composables/useSignup";
 
 const { username, password, height, weight, age, signupUser} = UseSignup();
 

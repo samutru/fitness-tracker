@@ -27,18 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import {
-  IonPage,
-  IonContent,
-  IonInput,
-  IonRow,
-  IonCol,
-  IonGrid,
-  IonButton,
-  IonItem,
-} from "@ionic/vue";
-import { useLogin } from "../composables/useLogin";
+import { IonPage, IonContent, IonInput, IonRow, IonCol, IonGrid, IonButton, IonItem } from '@ionic/vue';
+import { useLogin } from '../../composables/useLogin';
 
 const { username, password, login } = useLogin();
-
 </script>

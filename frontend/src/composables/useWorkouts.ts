@@ -16,9 +16,9 @@ export function useWorkouts() {
       time: number;
     }[]
   >([]);
-
   // get current route
   const route = useRoute();
+  const noExercisesSelected = ref<boolean>();
 
   // This functions reads the current workoutId out of the path
   onMounted(async () => {
@@ -90,8 +90,9 @@ export function useWorkouts() {
   // this function saves all selected exercises to a workout
   const startWorkout = async (id: any) => {
     if (!selectedExercises.value.length) {
-      alert('Please add some Exercises first!');
+      noExercisesSelected.value = true;
     } else {
+      noExercisesSelected.value = false;
       const effectiveExercises = selectedExercises.value.map((value) => {
         return {
           reps: 5,
@@ -119,6 +120,7 @@ export function useWorkouts() {
     currentWorkout,
     selectedExercises,
     datetimeInput,
+    noExercisesSelected,
     getWorkouts,
     saveWorkout,
     startWorkout,

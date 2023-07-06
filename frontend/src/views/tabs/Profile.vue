@@ -80,7 +80,7 @@
 
 <script setup lang="ts">
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonRow, IonCol, IonGrid, IonButton, IonButtons, IonModal, IonItem, IonInput} from '@ionic/vue';
-import { UseUserInfo } from '../composables/useUserInfo';
+import { UseUserInfo } from '../../composables/useUserInfo';
 import { ref } from 'vue';
 import { UserInfo } from '@/model/userInfo';
 

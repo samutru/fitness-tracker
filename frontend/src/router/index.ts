@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Tabs from '@/views/Tabs.vue';
-import Login from '@/views/Login.vue';
-import Signup from '@/views/Signup.vue';
+import Tabs from '@/views/tabs/Tabs.vue';
+import Login from '@/views/login/Login.vue';
+import Signup from '@/views/login/Signup.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -27,23 +27,23 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'profile',
-        component: () => import('@/views/Profile.vue'),
+        component: () => import('@/views/tabs/Profile.vue'),
       },
       {
         path: 'workouts',
-        component: () => import('@/views/Workouts.vue'),
+        component: () => import('@/views/tabs/Workouts.vue'),
       },
       {
         path: 'exercises',
-        component: () => import('@/views/Exercises.vue'),
+        component: () => import('@/views/tabs/Exercises.vue'),
       },
       {
         path: 'visualizations',
-        component: () => import('@/views/Visualizations.vue'),
+        component: () => import('@/views/tabs/Visualizations.vue'),
       },
       {
         path: 'addExercises/:id',
-        component: () => import('@/views/WorkoutAddExercises.vue'),
+        component: () => import('@/views/workout/WorkoutAddExercises.vue'),
       },
     ],
   },

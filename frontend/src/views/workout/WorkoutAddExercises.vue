@@ -18,7 +18,8 @@
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>
-      <ion-button @click="startWorkout(currentWorkout.id)">Start Workout</ion-button>
+      <ion-button id="startWorkout" @click="startWorkout(currentWorkout.id)">Start Workout</ion-button>
+      <ion-alert v-if="noExercisesSelected" trigger="startWorkout" header="Warning" message="Please add some exercises first" :buttons="alertButtons"></ion-alert>
 
       <ion-list>
         <ion-item>
@@ -66,11 +67,12 @@
 
 <script setup lang="ts">
 import { IonList, IonItem, IonSelect, IonSelectOption, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonModal, IonButtons, IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonLabel, IonRange, IonAlert } from '@ionic/vue';
-import { UseExerciseInfos } from '../composables/useExerciseInfos';
-import { useWorkouts } from '../composables/useWorkouts';
+import { UseExerciseInfos } from '../../composables/useExerciseInfos';
+import { useWorkouts } from '../../composables/useWorkouts';
 
-const { currentWorkout, selectedExercises, addExercise, startWorkout, onIonChange, removeExercise } = useWorkouts();
+const { currentWorkout, selectedExercises, noExercisesSelected, addExercise, startWorkout, onIonChange, removeExercise } = useWorkouts();
 const { filterExercisesInWorkout, isOpen, setOpen, selectedBodypart, selectedExercise } = UseExerciseInfos();
+const alertButtons = ['OK'];
 </script>
 
 <style scoped>
