@@ -23,11 +23,11 @@ export function useWorkoutSession() {
 
   // list all the exercises for the current workout
   const listAllExercisesForWorkout = async () => {
-    const routeWorkoutId = route.params.id;
+    const { id } = route.params;
 
-    if (routeWorkoutId) {
+    if (id) {
       try {
-        currentExercises.value = await getExercisesForWorkout(Number(routeWorkoutId));
+        currentExercises.value = await getExercisesForWorkout(Number(id));
       } catch (error) {
         console.log(error);
       }

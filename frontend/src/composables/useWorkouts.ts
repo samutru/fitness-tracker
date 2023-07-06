@@ -1,14 +1,13 @@
 import { getAllWorkouts, getWorkoutById, createNewWorkout, addExercisesToWorkout, getExercisesForWorkout } from '@/api/workouts';
 import { Workout } from '@/model/workout';
 import { useRouter, useRoute } from 'vue-router';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { Exercise } from '@/model/exercise';
 
 export function useWorkouts() {
   const workouts = ref<Workout[]>([]);
   const currentWorkout = ref<Workout>({});
-  const currentDatetime = new Date();
-  const datetimeInput = ref(currentDatetime);
+  const datetimeInput = ref(new Date());
   const router = useRouter();
   const selectedExercises = ref<
     {
@@ -23,14 +22,22 @@ export function useWorkouts() {
 
   // This functions reads the current workoutId out of the path
   onMounted(async () => {
-    const routeWorkoutId = route.params.id;
+    const { id } = route.params;
 
-    if (routeWorkoutId) {
+    if (id) {
       try {
-        currentWorkout.value = await getWorkoutById(Number(routeWorkoutId));
+        currentWorkout.value = await getWorkoutById(Number(id));
       } catch (error) {
         console.log(error);
       }
+    }
+  });
+
+  const dateTime = computed(() => {
+    if (datetimeInput.value) {
+      return datetimeInput.value.toISOString().substring(0, 16).replace('T', ' ');
+    } else {
+      return '';
     }
   });
 
@@ -122,15 +129,15 @@ export function useWorkouts() {
   const selectedWorkout = ref<Workout>();
   const exercisesForWorkout = ref<Exercise[]>([]);
 
-  const openCloseModal = async (isOpen:boolean, workout: any) => {
-    showExercises.value = isOpen
-    selectedWorkout.value = workout
-    if(isOpen && selectedWorkout.value?.id && selectedWorkout != null) {
-      exercisesForWorkout.value = await getExercisesForWorkout(selectedWorkout.value?.id)
+  const openCloseModal = async (isOpen: boolean, workout: any) => {
+    showExercises.value = isOpen;
+    selectedWorkout.value = workout;
+    if (isOpen && selectedWorkout.value?.id && selectedWorkout != null) {
+      exercisesForWorkout.value = await getExercisesForWorkout(selectedWorkout.value?.id);
     } else {
-      exercisesForWorkout.value = []
+      exercisesForWorkout.value = [];
     }
-  }
+  };
 
   return {
     showExercises,
@@ -140,7 +147,7 @@ export function useWorkouts() {
     workouts,
     currentWorkout,
     selectedExercises,
-    datetimeInput,
+    dateTime,
     noExercisesSelected,
     getWorkouts,
     saveWorkout,
