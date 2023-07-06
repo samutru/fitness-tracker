@@ -1,7 +1,8 @@
-import { getAllWorkouts, getWorkoutById, createNewWorkout, addExercisesToWorkout } from '@/api/workouts';
+import { getAllWorkouts, getWorkoutById, createNewWorkout, addExercisesToWorkout, getExercisesForWorkout } from '@/api/workouts';
 import { Workout } from '@/model/workout';
 import { useRouter, useRoute } from 'vue-router';
 import { onMounted, ref } from 'vue';
+import { Exercise } from '@/model/exercise';
 
 export function useWorkouts() {
   const workouts = ref<Workout[]>([]);
@@ -117,7 +118,25 @@ export function useWorkouts() {
     }
   };
 
+  const showExercises = ref<boolean>(false);
+  const selectedWorkout = ref<Workout>();
+  const exercisesForWorkout = ref<Exercise[]>([]);
+
+  const openCloseModal = async (isOpen:boolean, workout: any) => {
+    showExercises.value = isOpen
+    selectedWorkout.value = workout
+    if(isOpen && selectedWorkout.value?.id && selectedWorkout != null) {
+      exercisesForWorkout.value = await getExercisesForWorkout(selectedWorkout.value?.id)
+    } else {
+      exercisesForWorkout.value = []
+    }
+  }
+
   return {
+    showExercises,
+    selectedWorkout,
+    exercisesForWorkout,
+    openCloseModal,
     workouts,
     currentWorkout,
     selectedExercises,

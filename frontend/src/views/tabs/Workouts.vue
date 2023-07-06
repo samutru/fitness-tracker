@@ -31,15 +31,43 @@
         <ion-card-header>
           <ion-card-title>Workout - {{ workout.dateOfWorkout }}</ion-card-title>
         </ion-card-header>
-        <ion-card-content>Total calories: {{ workout.calories }} --- Total Workouttime: {{ workout.totalTime }} </ion-card-content>
+        <ion-card-content>You have burned {{ workout.calories }} calories in {{ workout.totalTime }} Min </ion-card-content>
+        <ion-button @click="openCloseModal(true, workout)">Show Exercises</ion-button>
       </ion-card>
     </ion-content>
+    <ion-modal :is-open="showExercises">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Workout - {{ selectedWorkout ? selectedWorkout.dateOfWorkout : '' }}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button @click="openCloseModal(false, null)">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-list>
+            <ion-item v-for="exercise in exercisesForWorkout">
+              <ion-label> 
+                 {{ exercise.exerciseInfo?.name }}
+                <p>{{ exercise.reps }} reps --- {{ exercise.exerciseTime }} S</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-modal>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, IonAccordionGroup, IonAccordion, IonItem, IonLabel, IonList, IonDatetime, IonButton } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, IonAccordionGroup, IonAccordion, IonItem, IonLabel, IonDatetime, IonButton, IonModal, IonButtons, IonList } from '@ionic/vue';
 import { useWorkouts } from '../../composables/useWorkouts';
 
-const { workouts, datetimeInput, saveWorkout } = useWorkouts();
+const { showExercises, selectedWorkout, exercisesForWorkout, openCloseModal, workouts, datetimeInput, saveWorkout } = useWorkouts();
+
 </script>
+
+<style>
+  td {
+    padding: 10px;
+  }
+</style>
