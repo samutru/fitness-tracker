@@ -2,10 +2,26 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Add Exercises to Your Workout!</ion-title>
+        <ion-title>Add Exercises to Your Workout {{ currentWorkout || '...loading' }}!</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding">
+      <ion-title>Selected Exercises</ion-title>
+      <ion-list>
+        <ion-item-sliding v-for="selectedExercise in selectedExercises">
+          <ion-item>
+            <ion-label>{{ selectedExercise.name }}</ion-label>
+            <ion-range @ionChange="onIonChange(selectedExercise.id, $event)"></ion-range>
+            <ion-label>{{ selectedExercise.time }}s </ion-label>
+          </ion-item>
+          <ion-item-options>
+            <ion-item-option color="danger" @click="removeExercise(selectedExercise.id)">Remove</ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list>
+      <ion-button @click="startWorkout()">Start Workout</ion-button>
+      <ion-alert trigger="present-alert" header="Alert" subHeader="Important message" message="This is an alert!">Test</ion-alert>
+
       <ion-list>
         <ion-item>
           <ion-select aria-label="Bodypart" interface="alert" placeholder="Select Bodypart" v-model="selectedBodypart" fill="solid">
@@ -18,14 +34,14 @@
         </ion-item>
       </ion-list>
 
-      <ion-list v-for="(group, index) in groupedExerciseInfos" :key="index">
-        <ion-item-sliding v-for="exerciseInfo in group" :key="exerciseInfo.id">
+      <ion-list>
+        <ion-item-sliding v-for="exerciseInfo in filterExercisesInWorkout" :key="exerciseInfo.id">
           <ion-item-options side="start">
-            <ion-item-option color="success">Add</ion-item-option>
+            <ion-item-option color="success" @click="addExercise(exerciseInfo.name, exerciseInfo.id)">Add</ion-item-option>
           </ion-item-options>
           <ion-item>
             <ion-label>{{ exerciseInfo.name }}</ion-label>
-            <ion-button expand="block" @click="setOpen(true, exerciseInfo)" color="light">Description</ion-button>
+            <ion-button @click="setOpen(true, exerciseInfo)" color="light">Description</ion-button>
           </ion-item>
         </ion-item-sliding>
       </ion-list>
@@ -51,10 +67,12 @@
 </template>
 
 <script setup lang="ts">
-import { IonList, IonItem, IonSelect, IonSelectOption, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonSearchbar, IonModal, IonButtons, IonButton, IonGrid, IonRow, IonCol, IonItemSliding, IonItemOptions, IonItemOption, IonLabel } from '@ionic/vue';
+import { IonList, IonItem, IonSelect, IonSelectOption, IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonModal, IonButtons, IonButton, IonItemSliding, IonItemOptions, IonItemOption, IonLabel, IonRange, IonAlert } from '@ionic/vue';
 import { UseExerciseInfos } from '../composables/useExerciseInfos';
+import { useWorkouts } from '../composables/useWorkouts';
 
-const { exerciseInfos, getExerciseInfos, groupedExerciseInfos, isOpen, setOpen, selectedBodypart, searchInput, selectedExercise } = UseExerciseInfos();
+const { filterExercisesInWorkout, isOpen, setOpen, selectedBodypart, selectedExercise } = UseExerciseInfos();
+const { currentWorkout, selectedExercises, addExercise, startWorkout, onIonChange, removeExercise } = useWorkouts();
 </script>
 
 <style scoped></style>

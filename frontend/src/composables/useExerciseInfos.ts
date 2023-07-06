@@ -27,12 +27,19 @@ const setOpen = (status: boolean, exerciseInfo: any) => {
   selectedExercise.value = exerciseInfo;
 };
 
+// this function is used to filter exercises in the exercise tab
 const groupedExerciseInfos = computed(() => {
   let filteredExercises = exerciseInfos.value.filter((exerciseInfo) => selectedBodypart.value == exerciseInfo.category || selectedBodypart.value == 'NoFilter' || !selectedBodypart.value);
   let grouped = [];
   for (let i = 0; i < filteredExercises.length; i += 2) {
     grouped.push(filteredExercises.slice(i, i + 2));
   }
+  return grouped;
+});
+
+// this function is used to filter workouts during the "selecting exercises" process
+const filterExercisesInWorkout = computed(() => {
+  let grouped = exerciseInfos.value.filter((exerciseInfo) => selectedBodypart.value == exerciseInfo.category || selectedBodypart.value == 'NoFilter' || !selectedBodypart.value);
   return grouped;
 });
 
@@ -43,6 +50,7 @@ const groupedExerciseInfos = computed(() => {
     selectedExercise,
     isOpen,
     groupedExerciseInfos,
+    filterExercisesInWorkout,
     setOpen,
     getExerciseInfos,
   };
