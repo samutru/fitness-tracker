@@ -1,13 +1,13 @@
 import { getAllWorkouts, getWorkoutById, createNewWorkout, addExercisesToWorkout } from '@/api/workouts';
 import { Workout } from '@/model/workout';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { onMounted, ref } from 'vue';
 
 export function useWorkouts() {
   const workouts = ref<Workout[]>([]);
   const currentWorkout = ref<Workout>({});
   const currentDatetime = new Date();
-  const datetimeInput = ref(currentDatetime.toISOString());
+  const datetimeInput = ref(currentDatetime);
   const router = useRouter();
   const selectedExercises = ref<
     {
@@ -16,21 +16,21 @@ export function useWorkouts() {
       time: number;
     }[]
   >([]);
-  const workoutId = ref(null);
 
-  // this function gets the workout which was saved
-  const getWorkout = async (workoutId: number) => {
-    try {
-      if (workoutId !== null) {
-        currentWorkout.value = await getWorkoutById(workoutId);        
-        // currentWorkout.value.dateOfWorkout?.toLocaleString();
-      } else {
-        console.log('workoutId is null');
+  // get current route
+  const route = useRoute();
+
+  // This functions reads the current workoutId out of the path
+  onMounted(async () => {
+    const routeWorkoutId = route.params.id;
+    if (routeWorkoutId) {
+      try {
+        currentWorkout.value = await getWorkoutById(Number(routeWorkoutId));
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
-  };
+  });
 
   // this function gets all the workouts displayed in the workoutTab
   const getWorkouts = async () => {
@@ -47,21 +47,13 @@ export function useWorkouts() {
   // this function saves a new workout
   const saveWorkout = async () => {
     if (datetimeInput.value) {
-      const datetime = datetimeInput.value.split('T')[0];
       let workout: Workout = {
-        dateOfWorkout: new Date(datetime),
+        dateOfWorkout: new Date(datetimeInput.value),
       };
       try {
         let res = await createNewWorkout(workout);
-        workoutId.value = res.id;
-        console.log('WorkoutID in Save Workout: ' + workoutId.value);
-        router.push('/tabs/addExercises/' + workoutId.value);
         getWorkouts();
-        if (workoutId.value !== null) {
-          getWorkout(workoutId.value);
-        } else {
-          console.log('Error');
-        }
+        router.push('/tabs/addExercises/' + res.id);
       } catch (error) {
         console.log(error);
       }
@@ -96,15 +88,13 @@ export function useWorkouts() {
   };
 
   // this function saves all selected exercises to a workout
-  const startWorkout = async () => {
-    console.log('WorkoutID in startWorkout: ' + workoutId.value);
-
+  const startWorkout = async (id: any) => {
     if (!selectedExercises.value.length) {
       alert('Please add some Exercises first!');
     } else {
       const effectiveExercises = selectedExercises.value.map((value) => {
         return {
-          reps: 0,
+          reps: 5,
           exerciseTime: value.time,
           exerciseInfo: {
             id: value.id,
@@ -113,9 +103,8 @@ export function useWorkouts() {
       });
 
       try {
-        if (workoutId.value !== null) {
-          let res = await addExercisesToWorkout(effectiveExercises, workoutId.value);
-          console.log(res);
+        if (id !== null) {
+          let res = await addExercisesToWorkout(effectiveExercises, id);
         } else {
           console.log('workoutId.value is null');
         }
@@ -131,7 +120,6 @@ export function useWorkouts() {
     selectedExercises,
     datetimeInput,
     getWorkouts,
-    getWorkout,
     saveWorkout,
     startWorkout,
     addExercise,

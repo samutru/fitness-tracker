@@ -21,7 +21,7 @@
           </ion-item>
           <div class="ion-padding" slot="content">
             <ion-label>Set your start time and the correct Date</ion-label>
-            <ion-datetime display-format="YYYY-MM-DD HH:mm" v-model="datetimeInput"></ion-datetime>
+            <ion-datetime display-format="YYYY-MM-DD HH:mm" v-bind="datetimeInput"></ion-datetime>
             <ion-button @click="saveWorkout">Save Workout</ion-button>
           </div>
         </ion-accordion>

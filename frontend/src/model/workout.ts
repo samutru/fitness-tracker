@@ -1,7 +1,7 @@
 export interface Workout {
     id?: number;
     calories?: number;
-    dateOfWorkout?: Date | string;
+    dateOfWorkout?: Date;
     totalTime?: number;
     userLoginName?: string;
 }

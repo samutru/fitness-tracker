@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Add Exercises to Your Workout {{ currentWorkout || '...loading' }}!</ion-title>
+        <ion-title>Add Exercises to Your Workout ({{ currentWorkout && currentWorkout.dateOfWorkout ? new Date(currentWorkout.dateOfWorkout).toLocaleDateString() : '...loading' }})</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true" class="ion-padding">
@@ -11,16 +11,14 @@
         <ion-item-sliding v-for="selectedExercise in selectedExercises">
           <ion-item>
             <ion-label>{{ selectedExercise.name }}</ion-label>
-            <ion-range @ionChange="onIonChange(selectedExercise.id, $event)"></ion-range>
-            <ion-label>{{ selectedExercise.time }}s </ion-label>
+            <ion-range @ionChange="onIonChange(selectedExercise.id, $event)" :value="60" :pin="true" :snaps="true"></ion-range>
           </ion-item>
           <ion-item-options>
             <ion-item-option color="danger" @click="removeExercise(selectedExercise.id)">Remove</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>
-      <ion-button @click="startWorkout()">Start Workout</ion-button>
-      <ion-alert trigger="present-alert" header="Alert" subHeader="Important message" message="This is an alert!">Test</ion-alert>
+      <ion-button @click="startWorkout(currentWorkout.id)">Start Workout</ion-button>
 
       <ion-list>
         <ion-item>
@@ -71,8 +69,21 @@ import { IonList, IonItem, IonSelect, IonSelectOption, IonPage, IonHeader, IonTo
 import { UseExerciseInfos } from '../composables/useExerciseInfos';
 import { useWorkouts } from '../composables/useWorkouts';
 
-const { filterExercisesInWorkout, isOpen, setOpen, selectedBodypart, selectedExercise } = UseExerciseInfos();
 const { currentWorkout, selectedExercises, addExercise, startWorkout, onIonChange, removeExercise } = useWorkouts();
+const { filterExercisesInWorkout, isOpen, setOpen, selectedBodypart, selectedExercise } = UseExerciseInfos();
 </script>
 
-<style scoped></style>
+<style scoped>
+ion-range::part(pin) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border-radius: 50%;
+  transform: scale(1.01);
+  top: -20px;
+  min-width: 28px;
+  height: 28px;
+  transition: transform 120ms ease, background 120ms ease;
+}
+</style>
