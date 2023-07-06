@@ -15,15 +15,13 @@
         <ion-card-content>Time {{ currentExercise.exerciseTime }}s </ion-card-content>
       </ion-card>
 
-      <div>
-        <ion-button v-if="!workoutStarted && !workoutEnded" @click="beginWorkout(true)">Begin Workout</ion-button>
-        <ion-button v-else-if="!workoutStarted" @click="endWorkout()">End Workout</ion-button>
-      </div>
+      <ion-button v-if="!workoutStarted && !workoutEnded" @click="showNextExercise()">Begin Workout</ion-button>
 
       <ion-modal :is-open="workoutStarted && !workoutEnded">
         <ion-header>
           <ion-toolbar>
-            <ion-title>Current Exercise - {{ countdown }} </ion-title>
+            <ion-title>Current Exercise</ion-title>
+            <ion-progress-bar :value="countdown / totalExerciseTime" type="determinate"></ion-progress-bar>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
@@ -35,14 +33,33 @@
               <div>
                 <ion-button v-if="!workoutPaused && !showNextExerciseBtn" @click="pauseWorkout(true)">Pause Workout</ion-button>
                 <ion-button v-else-if="workoutPaused && !showNextExerciseBtn" @click="pauseWorkout(false)">Continiue Workout</ion-button>
-                <ion-button v-if="showNextExerciseBtn" @click="showNextExercise(), updateExerciseInfos(currentExercises[currentExerciseIndex - 1].workout?.id, currentExercises[currentExerciseIndex - 1].id)">Next Exercise</ion-button>
+                <ion-button v-if="showNextExerciseBtn" @click="showNextExercise()">Next Exercise</ion-button>
                 <ion-input v-if="showRepInputField" labelPlacement="floating" v-model="reps">
                   <div slot="label">Reps <ion-text color="danger">(Required)</ion-text></div>
                 </ion-input>
               </div>
             </ion-card-content>
+            <iframe width="560" height="315" :src="currentExercises[currentExerciseIndex].exerciseInfo?.youtubeLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
           </ion-card>
-          <iframe width="560" height="315" :src="currentExercises[currentExerciseIndex].exerciseInfo?.youtubeLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </ion-content>
+      </ion-modal>
+      <ion-modal :is-open="!workoutStarted && workoutEnded && finishModalOpen">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Congratulations! You finished your Workout!</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <ion-card :key="currentExercise.id" v-for="currentExercise in currentExercises">
+            <ion-card-header>
+              <ion-card-title>{{ currentExercise.exerciseInfo?.name }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <p><b>Time:</b> {{ currentExercise.exerciseTime }}s</p>
+              <p><b>Reps:</b> {{ currentExercise.reps }}</p>
+            </ion-card-content>
+          </ion-card>
+          <ion-button @click="endWorkout()">End Workout</ion-button>
         </ion-content>
       </ion-modal>
     </ion-content>
@@ -50,9 +67,9 @@
 </template>
 
 <script setup lang="ts">
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonModal, IonPage, IonTitle, IonToolbar, IonInput } from '@ionic/vue';
+import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonModal, IonPage, IonTitle, IonToolbar, IonInput, IonProgressBar } from '@ionic/vue';
 import { useWorkoutSession } from '../../composables/useWorkoutSession';
-const { currentExercises, workoutStarted, workoutEnded, currentExerciseIndex, countdown, workoutPaused, showNextExerciseBtn, showRepInputField, reps, beginWorkout, showNextExercise, pauseWorkout, endWorkout, updateExerciseInfos } = useWorkoutSession();
+const { currentExercises, workoutStarted, workoutEnded, finishModalOpen, currentExerciseIndex, countdown, totalExerciseTime, workoutPaused, showNextExerciseBtn, showRepInputField, reps, showNextExercise, pauseWorkout, endWorkout, updateExerciseWithReps } = useWorkoutSession();
 </script>
 
 <style scoped></style>

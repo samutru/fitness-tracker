@@ -49,7 +49,7 @@
             <ion-item v-for="exercise in exercisesForWorkout">
               <ion-label> 
                  {{ exercise.exerciseInfo?.name }}
-                <p>{{ exercise.reps }} reps --- {{ exercise.exerciseTime }} S</p>
+                <p>{{ exercise.reps }} reps --- {{ exercise.exerciseTime }} seconds</p>
               </ion-label>
             </ion-item>
           </ion-list>
