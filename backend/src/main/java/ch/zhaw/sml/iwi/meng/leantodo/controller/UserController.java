@@ -29,12 +29,17 @@ public class UserController {
         return null;
     }
 
-    public User saveUser(User user) {
+    public void saveNewUser(User user) {
         user.setPasswordHash(new BCryptPasswordEncoder().encode(user.getPasswordHash()));
         Role r = new Role();
         r.setRoleName("ROLE_USER");
         roleRepository.save(r);
         user.getRoles().add(r);
-        return userRepository.save(user);
+        userRepository.save(user);
+    }
+
+    public void saveUser(User user, String username) {
+        user.setLoginName(username);
+        userRepository.save(user);
     }
 }

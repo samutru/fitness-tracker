@@ -13,3 +13,14 @@ export async function getUserInfo(): Promise<UserInfo>   {
         return <any>error;   
     }
 }
+
+export async function updateUser(userinfo:UserInfo) {
+    const config = {        
+        withCredentials: true
+    }
+    try {
+        await axios.post(API_ROOT + '/api/updateUser', userinfo, config);
+    } catch (error) {
+        throw <any>error;   
+    }
+}

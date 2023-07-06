@@ -38,7 +38,12 @@ public class UserEndpoint {
     }
     
     @PostMapping(value = "/signupUser")
-    public User signupUser(@RequestBody User user) {
-        return userController.saveUser(user);
+    public void signupUser(@RequestBody User user) {
+        userController.saveNewUser(user);
+    }
+
+    @PostMapping(value = "/api/updateUser")
+    public void updateUser(@RequestBody User user, Principal principal) {
+        userController.saveUser(user, principal.getName());
     }
 }
