@@ -62,6 +62,10 @@ public class LeanToDo implements CommandLineRunner {
         User u = new User();
         u.setLoginName("user");
         u.setPasswordHash(new BCryptPasswordEncoder().encode("user"));
+        u.setAge(20);
+        u.setHeight(180);
+        u.setWeight(80);
+        u.setBmi(24.7);
         Role r = new Role();
         r.setRoleName("ROLE_USER");
         roleRepository.save(r);
