@@ -14,7 +14,7 @@
           <ion-select aria-label="Bodypart" interface="alert" placeholder="Select Bodypart" v-model="selectedBodypart">
             <ion-select-option value="Abs">Abs</ion-select-option>
             <ion-select-option value="Arms">Arms</ion-select-option>
-            <ion-select-option value="Chest">Chest</ion-select-option>
+            <ion-select-option value="Upper Body">Upper Body</ion-select-option>
             <ion-select-option value="Legs">Legs</ion-select-option>
             <ion-select-option value="NoFilter">No Filter</ion-select-option>
           </ion-select>
