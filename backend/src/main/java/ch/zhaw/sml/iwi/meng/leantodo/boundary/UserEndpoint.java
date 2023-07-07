@@ -14,6 +14,7 @@ import ch.zhaw.sml.iwi.meng.leantodo.entity.User;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -42,8 +43,10 @@ public class UserEndpoint {
         userController.saveNewUser(user);
     }
 
-    @PostMapping(value = "/api/updateUser")
+    @PutMapping(value = "/api/updateUser")
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public void updateUser(@RequestBody User user, Principal principal) {
         userController.saveUser(user, principal.getName());
     }
+
 }

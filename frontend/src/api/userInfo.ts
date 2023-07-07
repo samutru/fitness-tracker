@@ -19,8 +19,9 @@ export async function updateUser(userinfo:UserInfo) {
         withCredentials: true
     }
     try {
-        await axios.post(API_ROOT + '/api/updateUser', userinfo, config);
+        await axios.put(API_ROOT + '/api/updateUser', userinfo, config);
     } catch (error) {
         throw <any>error;   
     }
 }
+

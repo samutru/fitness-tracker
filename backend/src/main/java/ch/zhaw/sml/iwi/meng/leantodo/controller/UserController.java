@@ -38,8 +38,12 @@ public class UserController {
         userRepository.save(user);
     }
 
-    public void saveUser(User user, String username) {
-        user.setLoginName(username);
+    public void saveUser(User temporaryUser, String username) {
+        User user = userRepository.findById(username).get();
+        user.setAge(temporaryUser.getAge());
+        user.setHeight(temporaryUser.getHeight());
+        user.setWeight(temporaryUser.getWeight());
+        user.setBmi(temporaryUser.getBmi());
         userRepository.save(user);
     }
 }
