@@ -23,6 +23,7 @@ public class WorkoutController {
         return workoutRepository.findByUserName(loginName);
     }
 
+    // Saves a new workout with correct userName (loginName)
     public Workout addWorkout(Workout workout, String username) {
         User user = userRepository.findById(username).get();
         workout.setUser(user);

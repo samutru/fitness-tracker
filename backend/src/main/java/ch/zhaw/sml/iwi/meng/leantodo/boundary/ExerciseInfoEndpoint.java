@@ -19,6 +19,7 @@ public class ExerciseInfoEndpoint {
     @Autowired
     ExerciseInfoController exerciseInfoController;
 
+    // this endpoint is used to display all exercises (infos) in the exercises tab
     @GetMapping(path = "/api/exerciseInfos")
     @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public List<ExerciseInfo> getExercises(Principal principal) {

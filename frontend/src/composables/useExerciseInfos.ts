@@ -10,7 +10,7 @@ export function UseExerciseInfos() {
     try {
         exerciseInfos.value = await getAllExerciseInfos();
     } catch (error) {
-      console.log(error); // FIXME: Errorhandling
+      console.log(error);
     }
   };
 

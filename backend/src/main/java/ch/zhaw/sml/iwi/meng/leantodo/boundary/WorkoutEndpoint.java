@@ -39,7 +39,7 @@ public class WorkoutEndpoint {
     }
 
     @PostMapping(value = "/api/workouts")
-    // @PreAuthorize("isAuthenticated() AND hasRole('USER')")
+    @PreAuthorize("isAuthenticated() AND hasRole('USER')")
     public Workout createWorkout(@RequestBody Workout workout, Principal principal) {
        return workoutController.addWorkout(workout, principal.getName());
     }

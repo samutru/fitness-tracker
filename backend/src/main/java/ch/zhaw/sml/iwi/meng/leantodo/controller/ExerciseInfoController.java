@@ -14,8 +14,8 @@ public class ExerciseInfoController {
     @Autowired
     private ExerciseInfoRepository exerciseInfoRepository;
 
-     public List<ExerciseInfo> listAllExerciseInfos() {
+    public List<ExerciseInfo> listAllExerciseInfos() {
         return exerciseInfoRepository.findAll();
     }
-    
+
 }
