@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_ROOT } from "@/config/development";
+import { API_ROOT } from "@/config/production";
 import { ExerciseInfo } from '@/model/exerciseInfos';
 
 export async function getAllExerciseInfos(): Promise<ExerciseInfo[]>   { 

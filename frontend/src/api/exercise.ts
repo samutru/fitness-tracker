@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_ROOT } from "@/config/development";
+import { API_ROOT } from "@/config/production";
 import { Exercise } from '@/model/exercise';
 
 export async function getExercisesForVisualization(exerciseName:string): Promise<Exercise[]>   { 

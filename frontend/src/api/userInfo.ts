@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_ROOT } from "@/config/development";
+import { API_ROOT } from "@/config/production";
 import { UserInfo } from '@/model/userInfo';
 
 export async function getUserInfo(): Promise<UserInfo>   { 

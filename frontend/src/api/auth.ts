@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_ROOT } from "@/config/development";
+import { API_ROOT } from "@/config/production";
 import { UserAuthResponse } from '@/model/userAuthResponse';
 
 export async function getToken(username: string, password: string): Promise<UserAuthResponse> {
