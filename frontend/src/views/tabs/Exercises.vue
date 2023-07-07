@@ -24,14 +24,7 @@
       <ion-grid>
         <ion-row v-for="(group, index) in groupedExerciseInfos" :key="index">
           <ion-col size="6" v-for="exerciseInfo in group" :key="exerciseInfo.id">
-            <ion-card color="primary" style="height: 8rem">
-              <ion-card-header>
-                <ion-card-title style="text-align: center">{{ exerciseInfo.name }}</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <ion-button expand="block" @click="setOpen(true, exerciseInfo)" color="light">Open</ion-button>
-              </ion-card-content>
-            </ion-card>
+            <ion-button color="primary" expand="block" @click="setOpen(true, exerciseInfo)">{{ exerciseInfo.name }}</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -49,7 +42,7 @@
           <h3>Description:</h3>
           <p v-if="selectedExercise">{{ selectedExercise.description }}</p>
           <h3>YouTube:</h3>
-          <iframe v-if="selectedExercise" width="560" height="315" :src="selectedExercise.youtubeLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <iframe v-if="selectedExercise" width="100%" height="315" :src="selectedExercise.youtubeLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </ion-content>
       </ion-modal>
     </ion-content>

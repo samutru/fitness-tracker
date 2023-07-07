@@ -59,7 +59,7 @@
           <h3>Description:</h3>
           <p v-if="selectedExercise">{{ selectedExercise.description }}</p>
           <h3>YouTube:</h3>
-          <iframe v-if="selectedExercise" width="560" height="315" :src="selectedExercise.youtubeLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <iframe v-if="selectedExercise" width="100%" height="315" :src="selectedExercise.youtubeLink" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </ion-content>
       </ion-modal>
     </ion-content>
