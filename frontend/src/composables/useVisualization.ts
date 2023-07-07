@@ -3,7 +3,6 @@ import { computed, onMounted, ref } from 'vue';
 import { UseExerciseInfos } from '@/composables/useExerciseInfos';
 import { ExerciseInfo } from '@/model/exerciseInfos';
 import { getExercisesForVisualization } from "@/api/exercise";
-import { isNullOrUndef } from "chart.js/dist/helpers/helpers.core";
 
 
 export function UseVisualization() {
@@ -26,6 +25,15 @@ export function UseVisualization() {
     
     const getVisualization = async (exerciseName:string) => {
         var response = await getExercisesForVisualization(exerciseName);
+
+        response.sort((a, b) => {
+          if (a.workout?.dateOfWorkout && b.workout?.dateOfWorkout) {
+            return new Date(a.workout.dateOfWorkout).getTime() - new Date(b.workout.dateOfWorkout).getTime();
+          } else {
+            return 0;
+          }
+        });
+        
         var label: string[] = [];
         var dataset: number[] = [];
         response.forEach(exercise => {
