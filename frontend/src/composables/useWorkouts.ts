@@ -13,6 +13,7 @@ export function useWorkouts() {
     {
       name: string;
       id: number;
+      exerciseId: number;
       time: number;
     }[]
   >([]);
@@ -74,13 +75,14 @@ export function useWorkouts() {
     selectedExercises.value.push({
       name: exerciseName,
       id: exerciseInfoId,
+      exerciseId: Math.random(),
       time: 0,
     });
   };
 
   // this function removes an exercise from the "selectedExercises"
   const removeExercise = (exerciseId: any) => {
-    selectedExercises.value = selectedExercises.value.filter((exercise) => exercise.id !== exerciseId);
+    selectedExercises.value = selectedExercises.value.filter((exercise) => exercise.exerciseId !== exerciseId);
   };
 
   // this function gets called when the time is set
@@ -90,7 +92,7 @@ export function useWorkouts() {
 
   // this function updated the selected time for each exercise
   const updateExerciseTime = (exerciseId: any, newTime: any) => {
-    const index = selectedExercises.value.findIndex((exercise) => exercise.id === exerciseId);
+    const index = selectedExercises.value.findIndex((exercise) => exercise.exerciseId === exerciseId);
     if (index !== -1) {
       selectedExercises.value[index].time = newTime;
     }
@@ -143,12 +145,12 @@ export function useWorkouts() {
     showExercises,
     selectedWorkout,
     exercisesForWorkout,
-    openCloseModal,
     workouts,
     currentWorkout,
     selectedExercises,
     dateTime,
     noExercisesSelected,
+    openCloseModal,
     getWorkouts,
     saveWorkout,
     startWorkout,

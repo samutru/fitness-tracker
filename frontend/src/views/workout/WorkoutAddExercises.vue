@@ -8,14 +8,14 @@
     <ion-content :fullscreen="true" class="ion-padding">
       <ion-title>Selected Exercises</ion-title>
       <ion-list>
-        <ion-item-sliding v-for="selectedExercise in selectedExercises">
+        <ion-item-sliding v-for="selectedExercise in selectedExercises" :key="selectedExercise.exerciseId">
           <ion-item>
             <ion-label>{{ selectedExercise.name }}</ion-label>
             <!-- :value="60" set start value for range -->
-            <ion-range @ionChange="onIonChange(selectedExercise.id, $event)" :pin="true" :snaps="true"></ion-range>
+            <ion-range @ionChange="onIonChange(selectedExercise.exerciseId, $event)" :pin="true" :snaps="true"></ion-range>
           </ion-item>
           <ion-item-options>
-            <ion-item-option color="danger" @click="removeExercise(selectedExercise.id)">Remove</ion-item-option>
+            <ion-item-option color="danger" @click="removeExercise(selectedExercise.exerciseId)">Remove</ion-item-option>
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>
