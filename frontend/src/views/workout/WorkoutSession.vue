@@ -33,7 +33,7 @@
               <div>
                 <ion-button v-if="!workoutPaused && !showNextExerciseBtn" @click="pauseWorkout(true)">Pause Workout</ion-button>
                 <ion-button v-else-if="workoutPaused && !showNextExerciseBtn" @click="pauseWorkout(false)">Continiue Workout</ion-button>
-                <ion-button v-if="showNextExerciseBtn" @click="showNextExercise()">Next Exercise</ion-button>
+                <ion-button v-if="showNextExerciseBtn && !workoutEnded" @click="showNextExercise()">Next Exercise</ion-button>
                 <ion-input v-if="showRepInputField" labelPlacement="floating" v-model="reps">
                   <div slot="label">Reps <ion-text color="danger">(Required)</ion-text></div>
                 </ion-input>

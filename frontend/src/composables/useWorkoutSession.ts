@@ -45,27 +45,36 @@ export function useWorkoutSession() {
   const pauseWorkout = (paused: boolean) => {
     workoutPaused.value = paused;
   };
-  const showNextExercise = () => {
+
+  const showNextExercise = async () => {
     exerciseClicks.value++;
+
+    // call updateExerciseWithReps only when showNextExercise gets called the second time
     if (exerciseClicks.value > 1) {
-      updateExerciseWithReps(currentExercises.value[currentExerciseIndex.value].workout?.id, currentExercises.value[currentExerciseIndex.value].id);
+      await updateExerciseWithReps(currentExercises.value[currentExerciseIndex.value].workout?.id, currentExercises.value[currentExerciseIndex.value].id);
+      reps.value = 0;
     }
+
     workoutStarted.value = true;
     currentExerciseIndex.value++;
     showNextExerciseBtn.value = false;
     nextExercise.value = false;
+
     if (currentExerciseIndex.value <= currentExercises.value.length - 1) {
       showRepInputField.value = false;
       clearInterval(intervalId.value);
       displayExercises();
     } else {
+      await listAllExercisesForWorkout();
+
       workoutStarted.value = false;
       workoutEnded.value = true;
       showNextExerciseBtn.value = false;
-      listAllExercisesForWorkout();
+      return;
     }
   };
 
+  // this function displays the new exercise in the modal window with the correspondig timer
   const displayExercises = async () => {
     const currentExercise = currentExercises.value[currentExerciseIndex.value];
 
@@ -87,6 +96,7 @@ export function useWorkoutSession() {
     }
   };
 
+  // this function update the exercise with the number of reps 
   const updateExerciseWithReps = async (workoutId: any, exerciseId: any) => {
     let exerciseUpdate: Exercise = {
       id: exerciseId,
