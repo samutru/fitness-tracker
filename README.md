@@ -1,2 +1,2 @@
-# leantodo
-MEng 2022 Demo Application (ToDo-Manager) Ionic / Java / Spring / JWT
+# Testing
+This branch was just for testing purposes
