@@ -13,6 +13,7 @@
             <ion-label>{{ selectedExercise.name }}</ion-label>
             <!-- :value="60" set start value for range -->
             <ion-range @ionChange="onIonChange(selectedExercise.exerciseId, $event)" :pin="true" :snaps="true"></ion-range>
+            <ion-label>{{ selectedExercise.time }}s</ion-label>
           </ion-item>
           <ion-item-options>
             <ion-item-option color="danger" @click="removeExercise(selectedExercise.exerciseId)">Remove</ion-item-option>
